@@ -61,4 +61,10 @@ public class Item {
 		itemUsePercentage = wearAndTearFarmerReduction;
 	}
 	
+	@Override
+	public String toString() {
+		return "Item [itemName=" + itemName + ", itemType=" + itemType + ", itemPrice=" + itemPrice
+				+ ", itemUsePercentage=" + itemUsePercentage + "% " +"]";
+	}
+	
 }

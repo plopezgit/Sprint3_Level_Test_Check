@@ -1,8 +1,10 @@
 package levelTestCheck.entity;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -65,8 +67,24 @@ public abstract class NPC implements Serializable {
 
 			String npcObject = encrypter.encrypt(this.toString(), properties.getProperty("encryptionKey"));
 			objectOutputStream.writeObject(npcObject);
+			
+			desSeriaizeNPCFromFileToObject();
 
 		} catch (IOException e) {
+			System.err.println(FILE_NOT_FOUND_MSG);
+		}
+	}
+	
+	public void desSeriaizeNPCFromFileToObject() {
+		try (FileInputStream fileOutputStream = new FileInputStream(properties.getProperty("fileSerPath"));
+				ObjectInputStream objectInputStream = new ObjectInputStream(fileOutputStream)) {
+
+			String desencryptedNpcObject = encrypter.desencrypt(objectInputStream.readObject().toString(),
+					properties.getProperty("encryptionKey"));
+
+			System.out.println(desencryptedNpcObject);
+
+		} catch (IOException | ClassNotFoundException e) {
 			System.err.println(FILE_NOT_FOUND_MSG);
 		}
 	}
