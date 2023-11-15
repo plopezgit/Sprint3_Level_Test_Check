@@ -27,28 +27,28 @@ public class NPCRolGameAdmin {
 		do {
 			switch (opcionMain = Input.inputInt("\n" + mainMenu)) {
 			case 1:
-				System.out.println("OrderListAndFilter functional interface by lamda expression");
+				System.out.println("OrderListAndFilter functional interface by lamda expression.");
 				break;
 			case 2:
-				System.out.println("OrderMapAndFilter functional interface by lamda expression");
+				System.out.println("OrderMapAndFilter functional interface by lamda expression.");
 				break;
 			case 3:
-				System.out.println("OrderListAndFilter functional interface by lamda expression");
+				System.out.println("OrderListAndFilter functional interface by lamda expression.");
 				break;
 			case 4:
-				System.out.println("OrderListAndFilter functional interface by lamda expression");
+				System.out.println("OrderListAndFilter functional interface by lamda expression.");
 				break;
 			case 5:
-				System.out.println("Sorry. No time to simulate");
+				System.out.println("Sorry. No time to simulate.");
 				break;
 			case 6:
-				System.out.println("Sorry. No time to simulate");
+				System.out.println("Sorry. No time to simulate.");
 				break;
 			case 7:
-				characters.get(Input.inputInt("Character key: ")).serializeDirectoryToFile();;
+				characters.get(Input.inputInt("Character key: (*knownError: java.lang.NullPointerException")).serializeDirectoryToFile();;
 				break;
 			case 8:
-				System.out.println("Bye");
+				System.out.println("Bye, bye.");
 				break;
 			default:
 				System.out.println("No available option.\n");

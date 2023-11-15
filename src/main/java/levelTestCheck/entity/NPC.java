@@ -60,8 +60,8 @@ public abstract class NPC implements Serializable {
 		try (FileOutputStream fileOutputStream = new FileOutputStream(properties.getProperty("fileSerPath"));
 				ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
 
-			String encryptedDirAlphaList = encrypter.encrypt(this.toString(), properties.getProperty("encryptionKey"));
-			objectOutputStream.writeObject(encryptedDirAlphaList);
+			String npcObject = encrypter.encrypt(this.toString(), properties.getProperty("encryptionKey"));
+			objectOutputStream.writeObject(npcObject);
 
 		} catch (IOException e) {
 			System.err.println(NPC_DESTINY_FILE_NOT_FOUND_MSG);
