@@ -1,4 +1,4 @@
-package levelTestCheck.Filter;
+package levelTestCheck.filter;
 
 import java.util.List;
 
