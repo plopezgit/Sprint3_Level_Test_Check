@@ -1,0 +1,70 @@
+package levelTestCheck.entity;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import levelTestCheck.tool.AESCypher;
+
+public abstract class NPC implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	private String npcName;
+	private String npcLocation;
+	private List<Item> npcItemsBag;
+	private Properties properties;
+	AESCypher encrypter;
+	private final String NPC_DESTINY_FILE_NOT_FOUND_MSG = "NPC destiny file not found";
+	
+	
+	public NPC(String npcName, String npcLocation) {
+		this.npcName = npcName;
+		this.npcLocation = npcLocation;
+		properties = new Properties();
+		npcItemsBag = new ArrayList<>();
+	}
+	
+	public String getNpcName() {
+		return npcName;
+	}
+
+	public void setNpcName(String npcName) {
+		this.npcName = npcName;
+	}
+
+	public List<Item> getNpcItemsBag() {
+		return npcItemsBag;
+	}
+
+	public void setNpcItemsBag(List<Item> npcItemsBag) {
+		this.npcItemsBag = npcItemsBag;
+	}
+	
+
+	public String getNpcLocation() {
+		return npcLocation;
+	}
+
+	public void setNpcLocation(String npcLocation) {
+		this.npcLocation = npcLocation;
+	}
+
+	public abstract void addItemTaxes(Item i);
+	
+	public void serializeDirectoryToFile() {
+		try (FileOutputStream fileOutputStream = new FileOutputStream(properties.getProperty("fileSerPath"));
+				ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+
+			String encryptedDirAlphaList = encrypter.encrypt(this.toString(), properties.getProperty("encryptionKey"));
+			objectOutputStream.writeObject(encryptedDirAlphaList);
+
+		} catch (IOException e) {
+			System.err.println(NPC_DESTINY_FILE_NOT_FOUND_MSG);
+		}
+	}
+
+}
