@@ -16,4 +16,11 @@ public class NPC_Thief extends NPC {
 		i.setItemPrice(itemTaxPlus);
 	}
 
+	@Override
+	public String toString() {
+		return "NPC_Thief [" + super.toString() + "]";
+	}
+	
+	
+
 }

@@ -1,6 +1,7 @@
 package levelTestCheck.entity;
 
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -18,14 +19,16 @@ public abstract class NPC implements Serializable {
 	private List<Item> npcItemsBag;
 	private Properties properties;
 	AESCypher encrypter;
-	private final String NPC_DESTINY_FILE_NOT_FOUND_MSG = "NPC destiny file not found";
+	private final String FILE_NOT_FOUND_MSG = "NPC destiny file not found";
 	
 	
 	public NPC(String npcName, String npcLocation) {
 		this.npcName = npcName;
 		this.npcLocation = npcLocation;
-		properties = new Properties();
 		npcItemsBag = new ArrayList<>();
+		properties = new Properties();
+		loadDirectoryNPCPropertiesFile();
+		encrypter = new AESCypher();
 		fullfilInitialNpcItemsBagDataBaseExample();
 	}
 	
@@ -56,7 +59,7 @@ public abstract class NPC implements Serializable {
 
 	public abstract void addItemTaxes(Item i);
 	
-	public void serializeDirectoryToFile() {
+	public void serializeNPCToFile() {
 		try (FileOutputStream fileOutputStream = new FileOutputStream(properties.getProperty("fileSerPath"));
 				ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
 
@@ -64,7 +67,15 @@ public abstract class NPC implements Serializable {
 			objectOutputStream.writeObject(npcObject);
 
 		} catch (IOException e) {
-			System.err.println(NPC_DESTINY_FILE_NOT_FOUND_MSG);
+			System.err.println(FILE_NOT_FOUND_MSG);
+		}
+	}
+	
+	private void loadDirectoryNPCPropertiesFile() {
+		try (FileReader reader = new FileReader("file.properties")){
+			properties.load(reader);
+		} catch (IOException e) {
+			System.err.println(FILE_NOT_FOUND_MSG);
 		}
 	}
 	
@@ -74,5 +85,12 @@ public abstract class NPC implements Serializable {
 		npcItemsBag.add(new Item("Map", "Instrument", 30.0F));
 		npcItemsBag.add(new Item("Knive", "Instrument", 20.0F));
 	}
+
+	@Override
+	public String toString() {
+		return "NPC [npcName=" + npcName + ", npcLocation=" + npcLocation + ", npcItemsBag=" + npcItemsBag + "]";
+	}
+	
+	
 
 }

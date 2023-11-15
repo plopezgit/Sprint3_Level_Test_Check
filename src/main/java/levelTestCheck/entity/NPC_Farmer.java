@@ -15,4 +15,11 @@ public class NPC_Farmer extends NPC {
 		i.setItemPrice(itemTaxPlus);
 	}
 
+	@Override
+	public String toString() {
+		return "NPC_Farmer [" + super.toString() + "]";
+	}
+	
+	
+
 }

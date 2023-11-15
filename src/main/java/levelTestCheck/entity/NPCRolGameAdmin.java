@@ -27,16 +27,16 @@ public class NPCRolGameAdmin {
 		do {
 			switch (opcionMain = Input.inputInt("\n" + mainMenu)) {
 			case 1:
-				System.out.println("OrderListAndFilter functional interface by lamda expression.");
+				System.out.println("OrderListAndFilter functional interface method implementation by lamda expression.");
 				break;
 			case 2:
-				System.out.println("OrderMapAndFilter functional interface by lamda expression.");
+				System.out.println("OrderMapAndFilter functional interface method implementation by lamda expression.");
 				break;
 			case 3:
-				System.out.println("OrderListAndFilter functional interface by lamda expression.");
+				System.out.println("OrderListAndFilter functional interface method implementation by lamda expression.");
 				break;
 			case 4:
-				System.out.println("OrderListAndFilter functional interface by lamda expression.");
+				System.out.println("OrderListAndFilter functional interface method implementation by lamda expression.");
 				break;
 			case 5:
 				System.out.println("Sorry. No time to simulate.");
@@ -45,7 +45,7 @@ public class NPCRolGameAdmin {
 				System.out.println("Sorry. No time to simulate.");
 				break;
 			case 7:
-				characters.get(Input.inputInt("Character key: (*knownError: java.lang.NullPointerException")).serializeDirectoryToFile();;
+				characters.get(Input.inputInt("Character key: 1-6")).serializeNPCToFile();;
 				break;
 			case 8:
 				System.out.println("Bye, bye.");
