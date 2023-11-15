@@ -69,12 +69,10 @@ public abstract class NPC implements Serializable {
 	}
 	
 	public void fullfilInitialNpcItemsBagDataBaseExample() {
-		npcItemsBag.add(1, null);
-		npcItemsBag.add(1, null);
-		npcItemsBag.add(1, null);
-		npcItemsBag.add(1, null);
-		npcItemsBag.add(1, null);
-		npcItemsBag.add(1, null);
+		npcItemsBag.add(new Item("Knive", "Army", 20.0F));
+		npcItemsBag.add(new Item("Cup", "Instrument", 10.0F));
+		npcItemsBag.add(new Item("Map", "Instrument", 30.0F));
+		npcItemsBag.add(new Item("Knive", "Instrument", 20.0F));
 	}
 
 }

@@ -27,18 +27,25 @@ public class NPCRolGameAdmin {
 		do {
 			switch (opcionMain = Input.inputInt("\n" + mainMenu)) {
 			case 1:
+				System.out.println("OrderListAndFilter functional interface by lamda expression");
 				break;
 			case 2:
+				System.out.println("OrderMapAndFilter functional interface by lamda expression");
 				break;
 			case 3:
+				System.out.println("OrderListAndFilter functional interface by lamda expression");
 				break;
 			case 4:
+				System.out.println("OrderListAndFilter functional interface by lamda expression");
 				break;
 			case 5:
+				System.out.println("Sorry. No time to simulate");
 				break;
 			case 6:
+				System.out.println("Sorry. No time to simulate");
 				break;
 			case 7:
+				characters.get(Input.inputInt("Character key: ")).serializeDirectoryToFile();;
 				break;
 			case 8:
 				System.out.println("Bye");
@@ -53,12 +60,12 @@ public class NPCRolGameAdmin {
 		
 		
 	public void fullfilInitialNPCDataBaseExample() {
-		characters.put(1, null);
-		characters.put(2, null);
-		characters.put(3, null);
-		characters.put(4, null);
-		characters.put(5, null);
-		characters.put(6, null);
+		characters.put(1, new NPC_Farmer("Paul", "Hual"));
+		characters.put(2, new NPC_Farmer("Phol", "Jul"));
+		characters.put(3, new NPC_Thief("Kill", "Hual"));
+		characters.put(4, new NPC_Thief("Bill", "Jul"));
+		characters.put(5, new NPC_Merchant("Jaime", "Hual"));
+		characters.put(6, new NPC_Merchant("Gamlo", "Jul"));
 	}
 
 }

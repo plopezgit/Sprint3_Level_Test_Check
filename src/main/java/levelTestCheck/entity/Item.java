@@ -9,7 +9,7 @@ public class Item {
 	private final float ITEM_DETERIORATION_THIEF_RATE = (itemUsePercentage * 25) / 100;
 	private final float ITEM_DETERIORATION_FARMER_RATE = (itemUsePercentage * 15) / 100;
 	
-	public Item(String itemName, String itemType, float itemPrice, float itemUsePercentage) {
+	public Item(String itemName, String itemType, float itemPrice) {
 		this.itemName = itemName;
 		this.itemType = itemType;
 		this.itemPrice = itemPrice;
