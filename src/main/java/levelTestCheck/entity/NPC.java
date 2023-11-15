@@ -26,6 +26,7 @@ public abstract class NPC implements Serializable {
 		this.npcLocation = npcLocation;
 		properties = new Properties();
 		npcItemsBag = new ArrayList<>();
+		fullfilInitialNpcItemsBagDataBaseExample();
 	}
 	
 	public String getNpcName() {
@@ -65,6 +66,15 @@ public abstract class NPC implements Serializable {
 		} catch (IOException e) {
 			System.err.println(NPC_DESTINY_FILE_NOT_FOUND_MSG);
 		}
+	}
+	
+	public void fullfilInitialNpcItemsBagDataBaseExample() {
+		npcItemsBag.add(1, null);
+		npcItemsBag.add(1, null);
+		npcItemsBag.add(1, null);
+		npcItemsBag.add(1, null);
+		npcItemsBag.add(1, null);
+		npcItemsBag.add(1, null);
 	}
 
 }
