@@ -2,7 +2,6 @@ package levelTestCheck.entity;
 
 public class NPC_Farmer extends NPC {
 
-	private static final long serialVersionUID = 1L;
 	private final int ITEM_TAX = 2;
 	private final int ITEM_DETERIORATION_PERCENTAGE = 15;
 	private final int ITEM_LIMIT = 5;

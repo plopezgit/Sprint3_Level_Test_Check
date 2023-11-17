@@ -1,37 +1,22 @@
 package levelTestCheck.entity;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
-
 import levelTestCheck.exception.ErrorMessage;
-import levelTestCheck.tool.AESCypher;
 
-public abstract class NPC implements Serializable {
+public abstract class NPC {
 	
-	private static final long serialVersionUID = 1L;
 	private String npcName;
 	private String npcLocation;
 	private float npcWalletBalance;
 	private List<Item> npcItemsBag;
-	private Properties properties;
-	AESCypher encrypter;
+
 	
 	public NPC(String npcName, String npcLocation) {
 		this.npcName = npcName;
 		this.npcLocation = npcLocation;
 		npcWalletBalance = 500;
 		npcItemsBag = new ArrayList<>();
-		properties = new Properties();
-		loadDirectoryNPCPropertiesFile();
-		encrypter = new AESCypher();
 	}
 	
 	public String getNpcName() {
@@ -107,7 +92,6 @@ public abstract class NPC implements Serializable {
 		return getNpcItemsBag();
 	}
 	
-	
 	public float reduceNPCWalletBalance (float totalTransacction) {
 		npcWalletBalance = npcWalletBalance - totalTransacction;
 		return npcWalletBalance;
@@ -132,42 +116,6 @@ public abstract class NPC implements Serializable {
 		}
 		
 		return itemIndex;
-	}
-	
-	public void serializeNPCToFile() {
-		try (FileOutputStream fileOutputStream = new FileOutputStream(properties.getProperty("fileSerPath"));
-				ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
-
-			String npcObject = encrypter.encrypt(this.toString(), properties.getProperty("encryptionKey"));
-			objectOutputStream.writeObject(npcObject);
-			
-			desSeriaizeNPCFromFileToObject();
-
-		} catch (IOException e) {
-			System.err.println(ErrorMessage.getFileNotFoundMessage());
-		}
-	}
-	
-	public void desSeriaizeNPCFromFileToObject() {
-		try (FileInputStream fileOutputStream = new FileInputStream(properties.getProperty("fileSerPath"));
-				ObjectInputStream objectInputStream = new ObjectInputStream(fileOutputStream)) {
-
-			String desencryptedNpcObject = encrypter.desencrypt(objectInputStream.readObject().toString(),
-					properties.getProperty("encryptionKey"));
-
-			System.out.println(desencryptedNpcObject);
-
-		} catch (IOException | ClassNotFoundException e) {
-			System.err.println(ErrorMessage.getFileNotFoundMessage());
-		}
-	}
-	
-	private void loadDirectoryNPCPropertiesFile() {
-		try (FileReader reader = new FileReader("file.properties")){
-			properties.load(reader);
-		} catch (IOException e) {
-			System.err.println(ErrorMessage.getFileNotFoundMessage());
-		}
 	}
 
 	@Override

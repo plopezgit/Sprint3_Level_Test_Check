@@ -23,7 +23,7 @@ public class MarketGameAdmin {
 	public void menu() {
 		String mainMenu = "NPC Admin console v1.\n" + "(1)Get items bag by character.\n" + "(2)Get character list by Location.\n"
 				+ "(3)Get cheapest item by Location.\n" + "(4)Get item by price.\n" + "(5)Buy an item.\n"
-				+ "(6)Sale an item.\n" + "(7)Save a charcaters to file.\n"
+				+ "(6)Sale an item.\n" + "(7)Save a characters to file.\n"
 				+ "(8)Exit.\n";
 		
 		int opcionMain = 0;
@@ -53,7 +53,6 @@ public class MarketGameAdmin {
 				break;
 			case 7:
 				charactesBackup.serializeNPCListToFile(characters);
-				//characters.get(Input.inputInt("Character key: 1-6")).serializeNPCToFile();
 				break;
 			case 8:
 				System.out.println("Bye, bye.");

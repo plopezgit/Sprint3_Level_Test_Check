@@ -2,7 +2,6 @@ package levelTestCheck.entity;
 
 public class NPC_Merchant extends NPC {
 
-	private static final long serialVersionUID = 1L;
 	private final int ITEM_TAX = 4;
 	private final int ITEM_DETERIORATION_PERCENTAGE = 0;
 	private final int ITEM_LIMIT = 7;
