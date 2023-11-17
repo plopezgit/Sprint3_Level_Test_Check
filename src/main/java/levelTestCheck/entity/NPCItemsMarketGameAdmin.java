@@ -2,17 +2,18 @@ package levelTestCheck.entity;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import levelTestCheck.tool.Input;
 
-
-
-public class NPCRolGameAdmin {
+public class NPCItemsMarketGameAdmin {
 	
 	private Map<Integer, NPC> characters;
+	private ItemsMarket itemsMarket;
 
-	public NPCRolGameAdmin() {
+	public NPCItemsMarketGameAdmin() {
 		characters = new HashMap<>();
+		itemsMarket = new ItemsMarket();
 		fullfilInitialNPCDataBaseExample();		
 	}
 
@@ -27,10 +28,12 @@ public class NPCRolGameAdmin {
 		do {
 			switch (opcionMain = Input.inputInt("\n" + mainMenu)) {
 			case 1:
-				System.out.println("OrderListAndFilter functional interface method implementation by lamda expression.");
+				characters.get(Input.inputInt("Character key: 1-6")).getNpcItemsBag().forEach(System.out::println);
 				break;
 			case 2:
-				System.out.println("OrderMapAndFilter functional interface method implementation by lamda expression.");
+				String city = Input.inputString("City: ");
+				characters.entrySet().stream().filter(npc -> npc.getValue().getNpcLocation().equalsIgnoreCase(city))
+					.collect(Collectors.toList()).forEach(System.out::println);
 				break;
 			case 3:
 				System.out.println("OrderListAndFilter functional interface method implementation by lamda expression.");
@@ -39,7 +42,7 @@ public class NPCRolGameAdmin {
 				System.out.println("OrderListAndFilter functional interface method implementation by lamda expression.");
 				break;
 			case 5:
-				System.out.println("Sorry. No time to simulate.");
+				buyMarketItem(Input.inputInt("Character key: 1-6"), Input.inputInt("Item id: "));
 				break;
 			case 6:
 				System.out.println("Sorry. No time to simulate.");
@@ -57,8 +60,24 @@ public class NPCRolGameAdmin {
 		} while (opcionMain != 8);
 
 	}
+	
+	public String buyMarketItem (int npcKey, int itemId) {
+		String result;
+		if (isValidSale(itemsMarket.existItem(itemId), npcKey)) {
+			characters.get(npcKey).buyItem(itemsMarket, itemsMarket.existItem(itemId));
+			result = "Compra exitosa";
+		} else {
+			result = "No es posible la transaccion";
+		}
 		
-		
+		return result;
+	}
+	
+	public boolean isValidSale (int indexItem, int npcKey) {
+		return itemsMarket.getItems().get(indexItem).existStockItem() && 
+					characters.get(npcKey).enoughBalance(indexItem);	
+	}
+	
 	public void fullfilInitialNPCDataBaseExample() {
 		characters.put(1, new NPC_Farmer("Paul", "Hual"));
 		characters.put(2, new NPC_Farmer("Phol", "Jul"));

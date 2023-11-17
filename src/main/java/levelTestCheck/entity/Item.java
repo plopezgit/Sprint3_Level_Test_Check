@@ -2,18 +2,30 @@ package levelTestCheck.entity;
 
 public class Item {
 
+	private int itemID;
 	private String itemName;
+	private int itemOwnerKey;
 	private String itemType;
 	private float itemPrice;
+	private int itemStock;
 	private float itemUsePercentage;
-	private final float ITEM_DETERIORATION_THIEF_RATE = (itemUsePercentage * 25) / 100;
-	private final float ITEM_DETERIORATION_FARMER_RATE = (itemUsePercentage * 15) / 100;
 	
-	public Item(String itemName, String itemType, float itemPrice) {
+	public Item(int itemID, String itemName, String itemType, float itemPrice, int itemStock) {
+		this.itemID = itemID;
 		this.itemName = itemName;
+		this.itemOwnerKey = 0;
 		this.itemType = itemType;
 		this.itemPrice = itemPrice;
+		this.itemStock = itemStock;
 		this.itemUsePercentage = 100;
+	}
+	
+	public Item(int itemID) {
+		this.itemID = itemID;
+	}
+
+	public int getItemID() {
+		return itemID;
 	}
 
 	public String getItemName() {
@@ -22,6 +34,14 @@ public class Item {
 
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
+	}
+	
+	public int getItemOwnerKey() {
+		return itemOwnerKey;
+	}
+
+	public void setItemOwnerKey(int itemOwnerKey) {
+		this.itemOwnerKey = itemOwnerKey;
 	}
 
 	public String getItemType() {
@@ -40,6 +60,14 @@ public class Item {
 		this.itemPrice = itemPrice;
 	}
 
+	public int getItemStock() {
+		return itemStock;
+	}
+
+	public void setItemStock(int itemStock) {
+		this.itemStock = itemStock;
+	}
+
 	public float getItemUsePercentage() {
 		return itemUsePercentage;
 	}
@@ -50,21 +78,19 @@ public class Item {
 	
 	//Method class
 	
-	public void wearAndTearThive() {
-		
-		float itemDeteriorationReduction = itemUsePercentage - ITEM_DETERIORATION_THIEF_RATE;
-		itemUsePercentage = itemDeteriorationReduction;
+	public void reduceStockItem () {
+		itemStock -= 1;
 	}
 	
-	public void wearAndTearFarmer() {
-		float wearAndTearFarmerReduction = itemUsePercentage - ITEM_DETERIORATION_FARMER_RATE;
-		itemUsePercentage = wearAndTearFarmerReduction;
+	public boolean existStockItem () {
+		return itemStock > 0;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Item [itemName=" + itemName + ", itemType=" + itemType + ", itemPrice=" + itemPrice
-				+ ", itemUsePercentage=" + itemUsePercentage + "% " +"]";
+		return "Item [itemID=" + itemID + ", itemName=" + itemName + ", itemOwnerKey=" + itemOwnerKey + ", itemType="
+				+ itemType + ", itemPrice=" + itemPrice + ", itemStock=" + itemStock + ", itemUsePercentage="
+				+ itemUsePercentage + "]";
 	}
 	
 }

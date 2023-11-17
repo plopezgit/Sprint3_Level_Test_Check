@@ -26,11 +26,17 @@ En cambio, un mercader conoce muy bien cómo guardar sus ítems para que no se e
 La aplicación permite:
 
 1- Consultar los los ítems de un vendedor.
+
 2- Consultar los vendedores que hay en una ciudad.
-3- Mostrar el ítems más barato de todos los vendedores de una ciudad
+
+3- Mostrar el ítems más barato de todos los vendedores de una ciudad.
+
 4- Mostrar todos los ítems de un determinado tipo ordenados por precio (asc).
+
 5- Simular la compra de un ítem a un NPC.
-6- Simular la venta de un ítem a un NPC.*
+
+6- Simular la venta de un ítem a un NPC.
+
 7- Serializar en un fichero JSON la información de cada NPC (categoría, ubicación, items: nombre, tipo, precio, desgaste..)
 
 
