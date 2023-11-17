@@ -2,7 +2,6 @@ package levelTestCheck.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import levelTestCheck.exception.ErrorMessage;
 
 public abstract class NPC {
 	
@@ -33,34 +32,61 @@ public abstract class NPC {
 	public abstract boolean limitItemsValidation();
 	
 	public List<Item> buyItem(PlayerItemsMarket itemsMarket, int itemIndex) {
-		try {
-			reduceNPCWalletBalance((float) itemsMarket.getItems().get(itemIndex).getItemPrice());
-			itemsMarket.incrementMarketBalance(itemsMarket.getItems().get(itemIndex).getItemPrice());
-		} catch (IndexOutOfBoundsException e) {
-			System.err.println(ErrorMessage.getItemDoesNotExistMessage());
-		} 
-			getNpcItemsBag().add(itemsMarket.getItems().get(itemIndex));
-				itemsMarket.getItems().get(itemIndex).reduceStockItem();
-					itemsMarket.getItems().get(itemIndex).setItemOwnerKey(this.hashCode());
-						addItemTaxes(itemsMarket, itemIndex, npcItemsBag.get(npcItemsBag.size()-1));
-							setItemDeterioration(itemsMarket, itemIndex, npcItemsBag.get(npcItemsBag.size()-1));
-								npcItemsBag.get(npcItemsBag.size()-1).setItemStock(1);
+		
+		processBalanceToBuyTransferenceSimulation(itemsMarket, itemIndex);
+		processItemToBuyTranspassSimulation(itemsMarket, itemIndex);
+
+		addItemTaxes(itemsMarket, itemIndex, npcItemsBag.get(npcItemsBag.size()-1));
+		setItemDeterioration(itemsMarket, itemIndex, npcItemsBag.get(npcItemsBag.size()-1));
 								
 		return getNpcItemsBag();
 	}
 	
-	public List<Item> saleItem(PlayerItemsMarket itemsMarket, int itemIndex) {
-		try {
-			incrementNPCWalletBalance((float) npcItemsBag.get(itemIndex).getItemPrice());
-			itemsMarket.reduceMarketBalance(npcItemsBag.get(itemIndex).getItemPrice());
-		} catch (IndexOutOfBoundsException e) {
-			System.err.println(ErrorMessage.getItemDoesNotExistMessage());
-		} 
-			itemsMarket.getItems().add(npcItemsBag.get(itemIndex));
-				npcItemsBag.remove(itemIndex);
-					itemsMarket.getItems().get(itemsMarket.getItems().size()-1).setItemOwnerKey(itemsMarket.hashCode());
+	public List<Item> sellItem(PlayerItemsMarket itemsMarket, int itemIndex) {
+		
+		processBalanceToSellTransferenceSimulation(itemsMarket, itemIndex);
+		processItemToSellTranspassSimulation(itemsMarket, itemIndex);
 					
 		return getNpcItemsBag();
+	}
+	
+	public void processBalanceToBuyTransferenceSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {
+		
+		reduceNPCWalletBalance((float) itemsMarket.getItems().get(itemIndex).getItemPrice());
+		itemsMarket.incrementMarketBalance(itemsMarket.getItems().get(itemIndex).getItemPrice());
+		
+	}
+	
+	public void processItemToBuyTranspassSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {
+		
+		getNpcItemsBag().add(itemsMarket.getItems().get(itemIndex));
+		itemsMarket.getItems().get(itemIndex).reduceStockItem();
+		npcItemsBag.get(npcItemsBag.size()-1).setItemStock(1);
+		
+	}
+	
+	public void processOwnerKeySignToBuyTransferSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {
+		
+		itemsMarket.getItems().get(itemIndex).setItemOwnerKey(this.hashCode());
+	}
+	
+	public void processBalanceToSellTransferenceSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {
+		
+		incrementNPCWalletBalance((float) npcItemsBag.get(itemIndex).getItemPrice());
+		itemsMarket.reduceMarketBalance(npcItemsBag.get(itemIndex).getItemPrice());
+		
+	}
+	
+	public void processItemToSellTranspassSimulation (PlayerItemsMarket itemsMarket, int itemIndex) {
+		
+		itemsMarket.addItems(npcItemsBag.get(itemIndex));
+		npcItemsBag.remove(itemIndex);
+		
+	}
+	
+	public void processOwnerKeySignToSaleTransferSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {
+		
+		itemsMarket.getItems().get(itemsMarket.getItems().size()-1).setItemOwnerKey(itemsMarket.hashCode());
 	}
 	
 	public float reduceNPCWalletBalance (float totalTransacction) {

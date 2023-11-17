@@ -17,6 +17,11 @@ public class PlayerItemsMarket {
 	public List<Item> getItems() {
 		return items;
 	}
+	
+	public List<Item> addItems(Item e) {
+		items.add(e);
+		return items;
+	}
 
 	public float getMarketBalance() {
 		return marketBalance;

@@ -23,7 +23,7 @@ public class MarketGameAdmin {
 	public void menu() {
 		String mainMenu = "NPC Admin console v1.\n" + "(1)Get items bag by character.\n"
 				+ "(2)Get character list by Location.\n" + "(3)Get cheapest item by Location.\n"
-				+ "(4)Get item by price.\n" + "(5)Buy an item.\n" + "(6)Sale an item.\n"
+				+ "(4)Get item by price.\n" + "(5)Buy an item.\n" + "(6)Sell an item.\n"
 				+ "(7)Save a characters to file.\n" + "(8)Exit.\n";
 
 		int opcionMain = 0;
@@ -48,7 +48,7 @@ public class MarketGameAdmin {
 				break;
 			case 5:
 				int npcKey = Input.inputInt("Character key: 1-6");
-				saleItem(npcKey, characters.get(npcKey).existItem(Input.inputInt("Item id: ")));
+				sellItem(npcKey, characters.get(npcKey).existItem(Input.inputInt("Item id: ")));
 				break;
 			case 6:
 				buyItem(Input.inputInt("Character key: 1-6"), itemsMarket.existItem(Input.inputInt("Item id: ")));
@@ -79,8 +79,8 @@ public class MarketGameAdmin {
 		return result;
 	}
 
-	public void saleItem(int npcKey, int itemIndex) {
-		characters.get(npcKey).saleItem(itemsMarket, itemIndex);
+	public void sellItem(int npcKey, int itemIndex) {
+		characters.get(npcKey).sellItem(itemsMarket, itemIndex);
 	}
 
 	public boolean isValidSale(int indexItem, int npcKey) {
