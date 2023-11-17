@@ -3,6 +3,8 @@ package levelTestCheck.entity;
 public class NPC_Thief extends NPC {
 
 	private static final long serialVersionUID = 1L;
+	private final int ITEM_TAX = 0;
+	private final int ITEM_DETERIORATION_PERCENTAGE = 25;
 	
 	public NPC_Thief(String npcName, String npcLocation) {
 		super(npcName, npcLocation);
@@ -10,15 +12,16 @@ public class NPC_Thief extends NPC {
 
 	@Override
 	public void addItemTaxes(ItemsMarket itemsMarket, int itemIndex, Item i) {
-		final float ITEM_TAX_THIEF_RATE = itemsMarket.getItems().get(itemIndex).getItemPrice() * 0;
-		float itemTaxPlus = i.getItemPrice() + ITEM_TAX_THIEF_RATE;
+		float ItemTaxThiefRate = itemsMarket.getItems().get(itemIndex).getItemPrice() * ITEM_TAX;
+		float itemTaxPlus = i.getItemPrice() + ItemTaxThiefRate;
 		i.setItemPrice(itemTaxPlus);
 	}
 
 	@Override
 	public void setItemDeterioration(ItemsMarket itemsMarket, int itemIndex, Item i) {
-		// TODO Auto-generated method stub
-		
+		float ItemDeteriorationThiefRate = (itemsMarket.getItems().get(itemIndex).getItemUsePercentage() * ITEM_DETERIORATION_PERCENTAGE) / 0;
+		float wearAndTearThiefReduction = i.getItemUsePercentage() - ItemDeteriorationThiefRate;
+		i.setItemUsePercentage(wearAndTearThiefReduction);
 	}
 	
 	@Override

@@ -3,6 +3,8 @@ package levelTestCheck.entity;
 public class NPC_Farmer extends NPC {
 
 	private static final long serialVersionUID = 1L;
+	private final int ITEM_TAX = 2;
+	private final int ITEM_DETERIORATION_PERCENTAGE = 15;
 	
 	public NPC_Farmer(String npcName, String npcLocation) {
 		super(npcName, npcLocation);
@@ -10,15 +12,15 @@ public class NPC_Farmer extends NPC {
 	
 	@Override
 	public void addItemTaxes(ItemsMarket itemsMarket, int itemIndex, Item i) {
-		final float ITEM_TAX_FARMER_RATE = (itemsMarket.getItems().get(itemIndex).getItemPrice() * 2) / 100;
-		float itemTaxPlus = i.getItemPrice() + ITEM_TAX_FARMER_RATE;
+		float ItemTaxFarmerRate = (itemsMarket.getItems().get(itemIndex).getItemPrice() * ITEM_TAX) / 100;
+		float itemTaxPlus = i.getItemPrice() + ItemTaxFarmerRate;
 		i.setItemPrice(itemTaxPlus);
 	}
 	
 	@Override
 	public void setItemDeterioration(ItemsMarket itemsMarket, int itemIndex, Item i) {
-		final float ITEM_DETERIORATION_FARMER_RATE = (itemsMarket.getItems().get(itemIndex).getItemUsePercentage() * 15) / 100;
-		float wearAndTearFarmerReduction = i.getItemUsePercentage() - ITEM_DETERIORATION_FARMER_RATE;
+		final float ItemDeteriorationFarmerRate = (itemsMarket.getItems().get(itemIndex).getItemUsePercentage() * ITEM_DETERIORATION_PERCENTAGE) / 100;
+		float wearAndTearFarmerReduction = i.getItemUsePercentage() - ItemDeteriorationFarmerRate;
 		i.setItemUsePercentage(wearAndTearFarmerReduction);
 	}
 
