@@ -11,50 +11,21 @@ public abstract class NPC {
 	private float npcWalletBalance;
 	private List<Item> npcItemsBag;
 
-	
 	public NPC(String npcName, String npcLocation) {
 		this.npcName = npcName;
 		this.npcLocation = npcLocation;
 		npcWalletBalance = 500;
 		npcItemsBag = new ArrayList<>();
 	}
-	
-	public String getNpcName() {
-		return npcName;
-	}
-
-	public void setNpcName(String npcName) {
-		this.npcName = npcName;
-	}
 
 	public List<Item> getNpcItemsBag() {
 		return npcItemsBag;
-	}
-
-	public void setNpcItemsBag(List<Item> npcItemsBag) {
-		this.npcItemsBag = npcItemsBag;
 	}
 	
 	public String getNpcLocation() {
 		return npcLocation;
 	}
-
-	public void setNpcLocation(String npcLocation) {
-		this.npcLocation = npcLocation;
-	}
 	
-	public float getNpcWalletBalance() {
-		return npcWalletBalance;
-	}
-
-	public void setNpcWalletBalance(float npcWalletBalance) {
-		this.npcWalletBalance = npcWalletBalance;
-	}
-	
-	public boolean enoughBalance (int itemPrice) {
-		return npcWalletBalance > itemPrice;
-	}
-
 	public abstract void addItemTaxes(PlayerItemsMarket itemsMarket, int itemIndex, Item i);	
 	
 	public abstract void setItemDeterioration(PlayerItemsMarket itemsMarket, int itemIndex, Item i);
@@ -101,6 +72,10 @@ public abstract class NPC {
 		npcWalletBalance = npcWalletBalance + totalTransacction;
 		return npcWalletBalance;
 	}
+
+	public boolean enoughBalance (int itemPrice) {
+		return npcWalletBalance > itemPrice;
+	}
 	
 	public int existItem (int itemID) {
 		int itemIndex = -1;
@@ -117,7 +92,7 @@ public abstract class NPC {
 		
 		return itemIndex;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "NPC [npcName=" + npcName + ", npcLocation=" + npcLocation + ", npcWalletBalance=" + npcWalletBalance

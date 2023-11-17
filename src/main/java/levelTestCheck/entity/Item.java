@@ -9,7 +9,7 @@ public class Item {
 	private float itemPrice;
 	private int itemStock;
 	private float itemUsePercentage;
-	
+
 	public Item(int itemID, String itemName, String itemType, float itemPrice, int itemStock) {
 		this.itemID = itemID;
 		this.itemName = itemName;
@@ -19,7 +19,7 @@ public class Item {
 		this.itemStock = itemStock;
 		this.itemUsePercentage = 100;
 	}
-	
+
 	public Item(int itemID) {
 		this.itemID = itemID;
 	}
@@ -35,7 +35,7 @@ public class Item {
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
-	
+
 	public int getItemOwnerKey() {
 		return itemOwnerKey;
 	}
@@ -75,14 +75,12 @@ public class Item {
 	public void setItemUsePercentage(float itemUsePercentage) {
 		this.itemUsePercentage = itemUsePercentage;
 	}
-	
-	//Method class
-	
-	public void reduceStockItem () {
+
+	public void reduceStockItem() {
 		itemStock -= 1;
 	}
-	
-	public boolean existStockItem () {
+
+	public boolean existStockItem() {
 		return itemStock > 0;
 	}
 
@@ -92,5 +90,5 @@ public class Item {
 				+ itemType + ", itemPrice=" + itemPrice + ", itemStock=" + itemStock + ", itemUsePercentage="
 				+ itemUsePercentage + "]";
 	}
-	
+
 }

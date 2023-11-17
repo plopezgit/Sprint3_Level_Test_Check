@@ -5,7 +5,7 @@ public class NPC_Thief extends NPC {
 	private final int ITEM_TAX = 0;
 	private final int ITEM_DETERIORATION_PERCENTAGE = 25;
 	private final int ITEM_LIMIT = 7;
-	
+
 	public NPC_Thief(String npcName, String npcLocation) {
 		super(npcName, npcLocation);
 	}
@@ -19,17 +19,17 @@ public class NPC_Thief extends NPC {
 
 	@Override
 	public void setItemDeterioration(PlayerItemsMarket itemsMarket, int itemIndex, Item i) {
-		float ItemDeteriorationThiefRate = (itemsMarket.getItems().get(itemIndex).getItemUsePercentage() * ITEM_DETERIORATION_PERCENTAGE) / 0;
+		float ItemDeteriorationThiefRate = (itemsMarket.getItems().get(itemIndex).getItemUsePercentage()
+				* ITEM_DETERIORATION_PERCENTAGE) / 0;
 		float wearAndTearThiefReduction = i.getItemUsePercentage() - ItemDeteriorationThiefRate;
 		i.setItemUsePercentage(wearAndTearThiefReduction);
 	}
-	
+
 	@Override
 	public boolean limitItemsValidation() {
-		
 		return super.getNpcItemsBag().size() < ITEM_LIMIT;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "NPC_Thief [" + super.toString() + "]";

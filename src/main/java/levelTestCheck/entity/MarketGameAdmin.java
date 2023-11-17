@@ -8,7 +8,7 @@ import levelTestCheck.tool.CharactersBackup;
 import levelTestCheck.tool.Input;
 
 public class MarketGameAdmin {
-	
+
 	private Map<Integer, NPC> characters;
 	private PlayerItemsMarket itemsMarket;
 	private CharactersBackup charactesBackup;
@@ -21,11 +21,11 @@ public class MarketGameAdmin {
 	}
 
 	public void menu() {
-		String mainMenu = "NPC Admin console v1.\n" + "(1)Get items bag by character.\n" + "(2)Get character list by Location.\n"
-				+ "(3)Get cheapest item by Location.\n" + "(4)Get item by price.\n" + "(5)Buy an item.\n"
-				+ "(6)Sale an item.\n" + "(7)Save a characters to file.\n"
-				+ "(8)Exit.\n";
-		
+		String mainMenu = "NPC Admin console v1.\n" + "(1)Get items bag by character.\n"
+				+ "(2)Get character list by Location.\n" + "(3)Get cheapest item by Location.\n"
+				+ "(4)Get item by price.\n" + "(5)Buy an item.\n" + "(6)Sale an item.\n"
+				+ "(7)Save a characters to file.\n" + "(8)Exit.\n";
+
 		int opcionMain = 0;
 
 		do {
@@ -36,13 +36,15 @@ public class MarketGameAdmin {
 			case 2:
 				String city = Input.inputString("City: ");
 				characters.entrySet().stream().filter(npc -> npc.getValue().getNpcLocation().equalsIgnoreCase(city))
-					.collect(Collectors.toList()).forEach(System.out::println);
+						.collect(Collectors.toList()).forEach(System.out::println);
 				break;
 			case 3:
-				System.out.println("OrderListAndFilter functional interface method implementation by lamda expression.");
+				System.out
+						.println("OrderListAndFilter functional interface method implementation by lamda expression.");
 				break;
 			case 4:
-				System.out.println("OrderListAndFilter functional interface method implementation by lamda expression.");
+				System.out
+						.println("OrderListAndFilter functional interface method implementation by lamda expression.");
 				break;
 			case 5:
 				int npcKey = Input.inputInt("Character key: 1-6");
@@ -52,7 +54,7 @@ public class MarketGameAdmin {
 				buyItem(Input.inputInt("Character key: 1-6"), itemsMarket.existItem(Input.inputInt("Item id: ")));
 				break;
 			case 7:
-				charactesBackup.serializeNPCListToFile(characters);
+				charactesBackup.backupNpcListToFile(characters);
 				break;
 			case 8:
 				System.out.println("Bye, bye.");
@@ -64,8 +66,8 @@ public class MarketGameAdmin {
 		} while (opcionMain != 8);
 
 	}
-	
-	public String buyItem (int npcKey, int itemIndex) {
+
+	public String buyItem(int npcKey, int itemIndex) {
 		String result;
 		if (isValidSale(itemIndex, npcKey)) {
 			characters.get(npcKey).buyItem(itemsMarket, itemIndex);
@@ -73,22 +75,19 @@ public class MarketGameAdmin {
 		} else {
 			result = "No es posible la transaccion";
 		}
-		
+
 		return result;
 	}
-	
-	public String saleItem (int npcKey, int itemIndex) {
-		String result;
+
+	public void saleItem(int npcKey, int itemIndex) {
 		characters.get(npcKey).saleItem(itemsMarket, itemIndex);
-		return result = "Compra exitosa";
 	}
-	
-	public boolean isValidSale (int indexItem, int npcKey) {
-		return itemsMarket.getItems().get(indexItem).existStockItem() && 
-					characters.get(npcKey).enoughBalance(indexItem) &&
-						characters.get(npcKey).limitItemsValidation();
+
+	public boolean isValidSale(int indexItem, int npcKey) {
+		return itemsMarket.getItems().get(indexItem).existStockItem() && characters.get(npcKey).enoughBalance(indexItem)
+				&& characters.get(npcKey).limitItemsValidation();
 	}
-	
+
 	public void fullfilInitialNPCDataBaseExample() {
 		characters.put(1, new NPC_Farmer("Paul", "Hual"));
 		characters.put(2, new NPC_Farmer("Phol", "Jul"));

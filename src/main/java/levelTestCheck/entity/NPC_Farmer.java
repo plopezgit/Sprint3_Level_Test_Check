@@ -5,28 +5,28 @@ public class NPC_Farmer extends NPC {
 	private final int ITEM_TAX = 2;
 	private final int ITEM_DETERIORATION_PERCENTAGE = 15;
 	private final int ITEM_LIMIT = 5;
-	
+
 	public NPC_Farmer(String npcName, String npcLocation) {
 		super(npcName, npcLocation);
 	}
-	
+
 	@Override
 	public void addItemTaxes(PlayerItemsMarket itemsMarket, int itemIndex, Item i) {
 		float ItemTaxFarmerRate = (itemsMarket.getItems().get(itemIndex).getItemPrice() * ITEM_TAX) / 100;
 		float itemTaxPlus = i.getItemPrice() + ItemTaxFarmerRate;
 		i.setItemPrice(itemTaxPlus);
 	}
-	
+
 	@Override
 	public void setItemDeterioration(PlayerItemsMarket itemsMarket, int itemIndex, Item i) {
-		final float ItemDeteriorationFarmerRate = (itemsMarket.getItems().get(itemIndex).getItemUsePercentage() * ITEM_DETERIORATION_PERCENTAGE) / 100;
+		final float ItemDeteriorationFarmerRate = (itemsMarket.getItems().get(itemIndex).getItemUsePercentage()
+				* ITEM_DETERIORATION_PERCENTAGE) / 100;
 		float wearAndTearFarmerReduction = i.getItemUsePercentage() - ItemDeteriorationFarmerRate;
 		i.setItemUsePercentage(wearAndTearFarmerReduction);
 	}
-	
+
 	@Override
 	public boolean limitItemsValidation() {
-		
 		return super.getNpcItemsBag().size() < ITEM_LIMIT;
 	}
 
@@ -35,6 +35,4 @@ public class NPC_Farmer extends NPC {
 		return "NPC_Farmer [" + super.toString() + "]";
 	}
 
-
-	
 }

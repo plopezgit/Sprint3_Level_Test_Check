@@ -13,32 +13,32 @@ import levelTestCheck.entity.NPC;
 import levelTestCheck.exception.ErrorMessage;
 
 public class CharactersBackup {
-	
+
 	private Properties properties;
 	private AESCypher encrypter;
-	
+
 	public CharactersBackup() {
 		properties = new Properties();
-		loadDirectoryNPCPropertiesFile();
+		loadPropertiesFile();
 		encrypter = new AESCypher();
-		
+
 	}
-	
-	public void serializeNPCListToFile(Map<Integer, NPC> characters) {
+
+	public void backupNpcListToFile(Map<Integer, NPC> characters) {
 		try (FileOutputStream fileOutputStream = new FileOutputStream(properties.getProperty("fileSerPath"));
 				ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
 
 			String npcList = encrypter.encrypt(characters.toString(), properties.getProperty("encryptionKey"));
 			objectOutputStream.writeObject(npcList);
-			
-			desSeriaizeNPCFromFileToObject();
+
+			retrieveNpcBackupFromFile();
 
 		} catch (IOException e) {
 			System.err.println(ErrorMessage.getFileNotFoundMessage());
 		}
 	}
-	
-	public void desSeriaizeNPCFromFileToObject() {
+
+	public void retrieveNpcBackupFromFile() {
 		try (FileInputStream fileOutputStream = new FileInputStream(properties.getProperty("fileSerPath"));
 				ObjectInputStream objectInputStream = new ObjectInputStream(fileOutputStream)) {
 
@@ -51,9 +51,9 @@ public class CharactersBackup {
 			System.err.println(ErrorMessage.getFileNotFoundMessage());
 		}
 	}
-	
-	private void loadDirectoryNPCPropertiesFile() {
-		try (FileReader reader = new FileReader("file.properties")){
+
+	private void loadPropertiesFile() {
+		try (FileReader reader = new FileReader("file.properties")) {
 			properties.load(reader);
 		} catch (IOException e) {
 			System.err.println(ErrorMessage.getFileNotFoundMessage());
