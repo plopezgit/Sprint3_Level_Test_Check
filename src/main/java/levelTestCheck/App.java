@@ -1,13 +1,13 @@
 package levelTestCheck;
 
-import levelTestCheck.entity.NPCItemsMarketGameAdmin;
+import levelTestCheck.entity.MarketGameAdmin;
 
 
 public class App {
 
 	public static void main(String[] args) {
 		
-		NPCItemsMarketGameAdmin game = new NPCItemsMarketGameAdmin();
+		MarketGameAdmin game = new MarketGameAdmin();
 		game.menu();
 		
 	}

@@ -4,23 +4,26 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import levelTestCheck.tool.CharactersBackup;
 import levelTestCheck.tool.Input;
 
-public class NPCItemsMarketGameAdmin {
+public class MarketGameAdmin {
 	
 	private Map<Integer, NPC> characters;
-	private ItemsMarket itemsMarket;
+	private PlayerItemsMarket itemsMarket;
+	private CharactersBackup charactesBackup;
 
-	public NPCItemsMarketGameAdmin() {
+	public MarketGameAdmin() {
 		characters = new HashMap<>();
-		itemsMarket = new ItemsMarket();
-		fullfilInitialNPCDataBaseExample();		
+		itemsMarket = new PlayerItemsMarket();
+		fullfilInitialNPCDataBaseExample();
+		charactesBackup = new CharactersBackup();
 	}
 
 	public void menu() {
 		String mainMenu = "NPC Admin console v1.\n" + "(1)Get items bag by character.\n" + "(2)Get character list by Location.\n"
 				+ "(3)Get cheapest item by Location.\n" + "(4)Get item by price.\n" + "(5)Buy an item.\n"
-				+ "(6)Sale an item.\n" + "(7)Save a charcater to file.\n"
+				+ "(6)Sale an item.\n" + "(7)Save a charcaters to file.\n"
 				+ "(8)Exit.\n";
 		
 		int opcionMain = 0;
@@ -42,13 +45,15 @@ public class NPCItemsMarketGameAdmin {
 				System.out.println("OrderListAndFilter functional interface method implementation by lamda expression.");
 				break;
 			case 5:
-				buyMarketItem(Input.inputInt("Character key: 1-6"), Input.inputInt("Item id: "));
+				int npcKey = Input.inputInt("Character key: 1-6");
+				saleItem(npcKey, characters.get(npcKey).existItem(Input.inputInt("Item id: ")));
 				break;
 			case 6:
-				System.out.println("Sorry. No time to simulate.");
+				buyItem(Input.inputInt("Character key: 1-6"), itemsMarket.existItem(Input.inputInt("Item id: ")));
 				break;
 			case 7:
-				characters.get(Input.inputInt("Character key: 1-6")).serializeNPCToFile();;
+				charactesBackup.serializeNPCListToFile(characters);
+				//characters.get(Input.inputInt("Character key: 1-6")).serializeNPCToFile();
 				break;
 			case 8:
 				System.out.println("Bye, bye.");
@@ -61,10 +66,10 @@ public class NPCItemsMarketGameAdmin {
 
 	}
 	
-	public String buyMarketItem (int npcKey, int itemId) {
+	public String buyItem (int npcKey, int itemIndex) {
 		String result;
-		if (isValidSale(itemsMarket.existItem(itemId), npcKey)) {
-			characters.get(npcKey).buyItem(itemsMarket, itemsMarket.existItem(itemId));
+		if (isValidSale(itemIndex, npcKey)) {
+			characters.get(npcKey).buyItem(itemsMarket, itemIndex);
 			result = "Compra exitosa";
 		} else {
 			result = "No es posible la transaccion";
@@ -73,9 +78,16 @@ public class NPCItemsMarketGameAdmin {
 		return result;
 	}
 	
+	public String saleItem (int npcKey, int itemIndex) {
+		String result;
+		characters.get(npcKey).saleItem(itemsMarket, itemIndex);
+		return result = "Compra exitosa";
+	}
+	
 	public boolean isValidSale (int indexItem, int npcKey) {
 		return itemsMarket.getItems().get(indexItem).existStockItem() && 
-					characters.get(npcKey).enoughBalance(indexItem);	
+					characters.get(npcKey).enoughBalance(indexItem) &&
+						characters.get(npcKey).limitItemsValidation();
 	}
 	
 	public void fullfilInitialNPCDataBaseExample() {

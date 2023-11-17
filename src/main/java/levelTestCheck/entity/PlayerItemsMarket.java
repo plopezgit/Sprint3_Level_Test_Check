@@ -3,21 +3,48 @@ package levelTestCheck.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemsMarket {
+public class PlayerItemsMarket {
 
 	private List<Item> items;
 	private float marketBalance;
 
-	public ItemsMarket() {
+	public PlayerItemsMarket() {
 		items = new ArrayList<>();
 		fullfilInitialNpcItemsBagDataBaseExample();
+		marketBalanceInitialization();
 	}
 
 	public List<Item> getItems() {
 		return items;
 	}
 	
-	//market balance methods
+	public float getMarketBalance() {
+		return marketBalance;
+	}
+
+	public void setMarketBalance(float marketBalance) {
+		this.marketBalance = marketBalance;
+	}
+
+	public void marketBalanceInitialization() {
+		for (Item i : items) {
+			marketBalance =+ i.getItemPrice();
+		}
+	}
+	
+	public float incrementMarketBalance (float totalTransacction) {
+		marketBalance = marketBalance - totalTransacction;
+		return marketBalance;
+	}
+	
+	public float reduceMarketBalance (float totalTransacction) {
+		marketBalance = marketBalance - totalTransacction;
+		return marketBalance;
+	}
+	
+	public boolean enoughMarketBalance (int itemPrice) {
+		return marketBalance > itemPrice;
+	}
 	
 	public int existItem (int itemID) {
 		int itemIndex = -1;
