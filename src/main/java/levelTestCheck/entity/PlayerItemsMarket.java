@@ -1,6 +1,7 @@
 package levelTestCheck.entity;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class PlayerItemsMarket {
 		characters = new HashMap<>();
 		items = new ArrayList<>();
 		fullfilInitialNPCDataBaseExample();
-		fullfilInitialNpcItemsBagDataBaseExample();
+		fullfilInitialItemsDataBaseExample();
 		marketBalanceInitialization();
 	}
 
@@ -80,6 +81,17 @@ public class PlayerItemsMarket {
 		.collect(Collectors.toList()).forEach(System.out::println);
 	}
 	
+	public void orderItemByPriceByType(String type) {	
+		items.sort(Comparator.comparing(Item::getItemPrice));
+		items.stream().filter(item -> item.getItemType().equalsIgnoreCase(type)) 
+		.collect(Collectors.toList()).forEach(System.out::println);
+	}
+	
+	public void getCheapestItem() {	
+		items.sort(Comparator.comparing(Item::getItemPrice));
+		System.out.println(items.stream().findFirst());
+	}
+	
 	public boolean isValidSale(int npcKey) {
 		return characters.get(npcKey).limitItemsValidation();
 	}
@@ -134,8 +146,10 @@ public class PlayerItemsMarket {
 	}
 	
 	
-	public void fullfilInitialNpcItemsBagDataBaseExample() {
+	public void fullfilInitialItemsDataBaseExample() {
+		items.add(new Item(1, "Bullet", "Army", 60.0F, 10));
 		items.add(new Item(1, "Knive", "Army", 20.0F, 10));
+		items.add(new Item(1, "Gun", "Army", 40.0F, 10));
 		items.add(new Item(2, "Cup", "Instrument", 10.0F, 10));
 		items.add(new Item(3, "Map", "Instrument", 30.0F, 10));
 		items.add(new Item(4, "Jacket", "Cloth", 23.0F, 10));

@@ -17,8 +17,8 @@ public class MarketGameAdmin {
 
 	public void menu() {
 		String mainMenu = "NPC Admin console v1.\n" + "(1)Get items bag by character.\n"
-				+ "(2)Get character list by Location.\n" + "(3)Get cheapest item by Location.\n"
-				+ "(4)Get item by price.\n" + "(5)Buy an item.\n" + "(6)Sell an item.\n"
+				+ "(2)Get character list by Location.\n" + "(3)Get cheapest item.\n"
+				+ "(4)Order item by price by type.\n" + "(5)Buy an item.\n" + "(6)Sell an item.\n"
 				+ "(7)Save a characters to file.\n" + "(8)Exit.\n";
 
 		int opcionMain = 0;
@@ -32,8 +32,10 @@ public class MarketGameAdmin {
 				itemsMarket.listCharactersByCity(Input.inputString("City: "));
 				break;
 			case 3:
+				itemsMarket.getCheapestItem();
 				break;
 			case 4:
+				itemsMarket.orderItemByPriceByType(Input.inputString("Type: "));
 				break;
 			case 5:
 				try {
