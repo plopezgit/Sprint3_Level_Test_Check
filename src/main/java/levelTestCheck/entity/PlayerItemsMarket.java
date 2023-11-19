@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import levelTestCheck.tool.Input;
 
 public class PlayerItemsMarket {
 
@@ -56,6 +59,17 @@ public class PlayerItemsMarket {
 		characters.get(npcKey).sellItem(this, itemIndex);
 	}
 
+	public void listCharactersItems(int npcKey) {
+		
+		characters.get(Input.inputInt("Character key: 1-6")).getNpcItemsBag().forEach(System.out::println);
+	}
+	
+	public void listCharactersByCity(String city) {
+		
+		characters.entrySet().stream().filter(npc -> npc.getValue().getNpcLocation().equalsIgnoreCase(city))
+		.collect(Collectors.toList()).forEach(System.out::println);
+	}
+	
 	public boolean isValidSale(int indexItem, int npcKey) {
 		return this.getItems().get(indexItem).existStockItem() && 
 				characters.get(npcKey).enoughBalance(indexItem) && 

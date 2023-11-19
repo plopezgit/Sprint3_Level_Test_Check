@@ -1,6 +1,5 @@
 package levelTestCheck.entity;
 
-import java.util.stream.Collectors;
 import levelTestCheck.tool.CharactersBackup;
 import levelTestCheck.tool.Input;
 
@@ -25,12 +24,10 @@ public class MarketGameAdmin {
 		do {
 			switch (opcionMain = Input.inputInt("\n" + mainMenu)) {
 			case 1:
-				itemsMarket.getCharacters().get(Input.inputInt("Character key: 1-6")).getNpcItemsBag().forEach(System.out::println);
+				itemsMarket.listCharactersItems(Input.inputInt("Character key: 1-6"));
 				break;
 			case 2:
-				String city = Input.inputString("City: ");
-				itemsMarket.getCharacters().entrySet().stream().filter(npc -> npc.getValue().getNpcLocation().equalsIgnoreCase(city))
-						.collect(Collectors.toList()).forEach(System.out::println);
+				itemsMarket.listCharactersByCity(Input.inputString("City: "));
 				break;
 			case 3:
 				System.out
