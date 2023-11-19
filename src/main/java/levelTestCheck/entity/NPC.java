@@ -84,7 +84,7 @@ public abstract class NPC {
 		
 	}
 	
-	public void processOwnerKeySignToSaleTransferSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {
+	public void processOwnerKeySignToSellTransferSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {
 		
 		itemsMarket.getItems().get(itemsMarket.getItems().size()-1).setItemOwnerKey(itemsMarket.hashCode());
 	}
