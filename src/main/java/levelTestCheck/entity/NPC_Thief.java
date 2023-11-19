@@ -4,7 +4,7 @@ public class NPC_Thief extends NPC {
 
 	private final int ITEM_TAX = 0;
 	private final int ITEM_DETERIORATION_PERCENTAGE = 25;
-	private final int ITEM_LIMIT = 7;
+	private final int ITEM_LIMIT = 3;
 
 	public NPC_Thief(String npcName, String npcLocation) {
 		super(npcName, npcLocation);

@@ -1,5 +1,6 @@
 package levelTestCheck.entity;
 
+import levelTestCheck.exception.ItemsBagFullException;
 import levelTestCheck.tool.CharactersBackup;
 import levelTestCheck.tool.Input;
 
@@ -42,7 +43,11 @@ public class MarketGameAdmin {
 				itemsMarket.sellItem(npcKey, itemsMarket.getCharacters().get(npcKey).existItem(Input.inputInt("Item id: ")));
 				break;
 			case 6:
-				itemsMarket.buyItem(Input.inputInt("Character key: 1-6"), itemsMarket.existItem(Input.inputInt("Item id: ")));
+				try {
+					itemsMarket.buyItem(Input.inputInt("Character key: 1-6"), itemsMarket.existItem(Input.inputInt("Item id: ")));
+				} catch (ItemsBagFullException e) {
+					System.err.println(e.getMessage());
+				} 
 				break;
 			case 7:
 				charactesBackup.backupNpcListToFile(itemsMarket.getCharacters());

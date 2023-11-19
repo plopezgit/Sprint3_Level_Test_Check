@@ -7,13 +7,11 @@ public abstract class NPC {
 	
 	private String npcName;
 	private String npcLocation;
-	private float npcWalletBalance;
 	private List<Item> npcItemsBag;
 
 	public NPC(String npcName, String npcLocation) {
 		this.npcName = npcName;
 		this.npcLocation = npcLocation;
-		npcWalletBalance = 500;
 		npcItemsBag = new ArrayList<>();
 	}
 
@@ -52,7 +50,6 @@ public abstract class NPC {
 	
 	public void processBalanceToBuyTransferenceSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {
 		
-		reduceNPCWalletBalance((float) itemsMarket.getItems().get(itemIndex).getItemPrice());
 		itemsMarket.incrementMarketBalance(itemsMarket.getItems().get(itemIndex).getItemPrice());
 		
 	}
@@ -60,8 +57,6 @@ public abstract class NPC {
 	public void processItemToBuyTranspassSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {
 		
 		getNpcItemsBag().add(itemsMarket.getItems().get(itemIndex));
-		itemsMarket.getItems().get(itemIndex).reduceStockItem();
-		npcItemsBag.get(npcItemsBag.size()-1).setItemStock(1);
 		
 	}
 	
@@ -72,7 +67,6 @@ public abstract class NPC {
 	
 	public void processBalanceToSellTransferenceSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {
 		
-		incrementNPCWalletBalance((float) npcItemsBag.get(itemIndex).getItemPrice());
 		itemsMarket.reduceMarketBalance(npcItemsBag.get(itemIndex).getItemPrice());
 		
 	}
@@ -87,20 +81,6 @@ public abstract class NPC {
 	public void processOwnerKeySignToSellTransferSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {
 		
 		itemsMarket.getItems().get(itemsMarket.getItems().size()-1).setItemOwnerKey(itemsMarket.hashCode());
-	}
-	
-	public float reduceNPCWalletBalance (float totalTransacction) {
-		npcWalletBalance = npcWalletBalance - totalTransacction;
-		return npcWalletBalance;
-	}
-	
-	public float incrementNPCWalletBalance (float totalTransacction) {
-		npcWalletBalance = npcWalletBalance + totalTransacction;
-		return npcWalletBalance;
-	}
-
-	public boolean enoughBalance (int itemPrice) {
-		return npcWalletBalance > itemPrice;
 	}
 	
 	public int existItem (int itemID) {
@@ -121,7 +101,7 @@ public abstract class NPC {
 	
 	@Override
 	public String toString() {
-		return "NPC [npcName=" + npcName + ", npcLocation=" + npcLocation + ", npcWalletBalance=" + npcWalletBalance
+		return "NPC [npcName=" + npcName + ", npcLocation=" + npcLocation + ", npcWalletBalance="
 				+ ", npcItemsBag=" + npcItemsBag + "]";
 	}
 

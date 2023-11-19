@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import levelTestCheck.tool.Input;
+import levelTestCheck.exception.ErrorMessage;
+import levelTestCheck.exception.ItemsBagFullException;
 
 public class PlayerItemsMarket {
 
@@ -43,13 +44,13 @@ public class PlayerItemsMarket {
 		this.marketBalance = marketBalance;
 	}
 	
-	public String buyItem(int npcKey, int itemIndex) {
+	public String buyItem(int npcKey, int itemIndex) throws ItemsBagFullException {
 		String result;
-		if (isValidSale(itemIndex, npcKey)) {
+		if (isValidSale(itemIndex, npcKey) == false) {
+			throw new ItemsBagFullException(ErrorMessage.getInvalidSale());
+		} else {
 			characters.get(npcKey).buyItem(this, itemIndex);
 			result = "Compra exitosa";
-		} else {
-			result = "No es posible la transaccion";
 		}
 
 		return result;
@@ -59,21 +60,17 @@ public class PlayerItemsMarket {
 		characters.get(npcKey).sellItem(this, itemIndex);
 	}
 
-	public void listCharactersItems(int npcKey) {
-		
-		characters.get(Input.inputInt("Character key: 1-6")).getNpcItemsBag().forEach(System.out::println);
+	public void listCharactersItems(int npcKey) {		
+		characters.get(npcKey).getNpcItemsBag().forEach(System.out::println);
 	}
 	
-	public void listCharactersByCity(String city) {
-		
+	public void listCharactersByCity(String city) {	
 		characters.entrySet().stream().filter(npc -> npc.getValue().getNpcLocation().equalsIgnoreCase(city))
 		.collect(Collectors.toList()).forEach(System.out::println);
 	}
 	
 	public boolean isValidSale(int indexItem, int npcKey) {
-		return this.getItems().get(indexItem).existStockItem() && 
-				characters.get(npcKey).enoughBalance(indexItem) && 
-				characters.get(npcKey).limitItemsValidation();
+		return characters.get(npcKey).limitItemsValidation();
 	}
 
 	public float incrementMarketBalance(float totalTransacction) {
