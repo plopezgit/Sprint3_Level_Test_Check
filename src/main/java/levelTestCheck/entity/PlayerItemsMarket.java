@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import levelTestCheck.exception.ErrorMessage;
 import levelTestCheck.exception.ItemsBagFullException;
+import levelTestCheck.exception.ItemDoesNotExist;
 
 public class PlayerItemsMarket {
 
@@ -44,44 +45,57 @@ public class PlayerItemsMarket {
 		this.marketBalance = marketBalance;
 	}
 	
-	public String buyItem(int npcKey, int itemIndex) throws ItemsBagFullException {
+	public String buyItem(int npcKey, int itemId) throws ItemsBagFullException, ItemDoesNotExist {
 		String result;
-		if (isValidSale(itemIndex, npcKey) == false) {
+		int index = existItem(itemId);
+		if (isValidSale(npcKey) == false) {
 			throw new ItemsBagFullException(ErrorMessage.getInvalidSale());
+		} else if (index == -1) {
+			throw new ItemDoesNotExist(ErrorMessage.getItemDoesNotExistMessage());
 		} else {
-			characters.get(npcKey).buyItem(this, itemIndex);
+			characters.get(npcKey).buyItem(this, index);
 			result = "Compra exitosa";
 		}
 
 		return result;
 	}
 
-	public void sellItem(int npcKey, int itemIndex) {
-		characters.get(npcKey).sellItem(this, itemIndex);
+	public void sellItem(int npcKey, int itemId) throws ItemDoesNotExist {
+		int index = existItem(itemId);
+		if (index == -1) {
+			throw new ItemDoesNotExist(ErrorMessage.getItemDoesNotExistMessage());
+		} else {
+			characters.get(npcKey).sellItem(this, existItem(itemId));
+		}
 	}
+	
 
 	public void listCharactersItems(int npcKey) {		
 		characters.get(npcKey).getNpcItemsBag().forEach(System.out::println);
 	}
+	
 	
 	public void listCharactersByCity(String city) {	
 		characters.entrySet().stream().filter(npc -> npc.getValue().getNpcLocation().equalsIgnoreCase(city))
 		.collect(Collectors.toList()).forEach(System.out::println);
 	}
 	
-	public boolean isValidSale(int indexItem, int npcKey) {
+	public boolean isValidSale(int npcKey) {
 		return characters.get(npcKey).limitItemsValidation();
 	}
+	
 
 	public float incrementMarketBalance(float totalTransacction) {
 		marketBalance = marketBalance - totalTransacction;
 		return marketBalance;
 	}
+	
 
 	public float reduceMarketBalance(float totalTransacction) {
 		marketBalance = marketBalance - totalTransacction;
 		return marketBalance;
 	}
+	
 
 	public boolean enoughMarketBalance(int itemPrice) {
 		return marketBalance > itemPrice;
@@ -102,6 +116,7 @@ public class PlayerItemsMarket {
 
 		return itemIndex;
 	}
+	
 
 	public void marketBalanceInitialization() {
 		for (Item i : items) {
@@ -117,6 +132,7 @@ public class PlayerItemsMarket {
 		characters.put(5, new NPC_Merchant("Jaime", "Hual"));
 		characters.put(6, new NPC_Merchant("Gamlo", "Jul"));
 	}
+	
 	
 	public void fullfilInitialNpcItemsBagDataBaseExample() {
 		items.add(new Item(1, "Knive", "Army", 20.0F, 10));

@@ -1,5 +1,6 @@
 package levelTestCheck.entity;
 
+import levelTestCheck.exception.ItemDoesNotExist;
 import levelTestCheck.exception.ItemsBagFullException;
 import levelTestCheck.tool.CharactersBackup;
 import levelTestCheck.tool.Input;
@@ -39,14 +40,17 @@ public class MarketGameAdmin {
 						.println("OrderListAndFilter functional interface method implementation by lamda expression.");
 				break;
 			case 5:
-				int npcKey = Input.inputInt("Character key: 1-6");
-				itemsMarket.sellItem(npcKey, itemsMarket.getCharacters().get(npcKey).existItem(Input.inputInt("Item id: ")));
+				try {
+					itemsMarket.sellItem(Input.inputInt("Character key: 1-6"), Input.inputInt("Item id: "));
+				} catch (ItemDoesNotExist e1) {
+					System.err.println(e1.getMessage());
+				}
 				break;
 			case 6:
 				try {
-					itemsMarket.buyItem(Input.inputInt("Character key: 1-6"), itemsMarket.existItem(Input.inputInt("Item id: ")));
-				} catch (ItemsBagFullException e) {
-					System.err.println(e.getMessage());
+					itemsMarket.buyItem(Input.inputInt("Character key: 1-6"), Input.inputInt("Item id: "));
+				} catch (ItemsBagFullException | ItemDoesNotExist e2) {
+					System.err.println(e2.getMessage());
 				} 
 				break;
 			case 7:

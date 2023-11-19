@@ -30,7 +30,6 @@ public abstract class NPC {
 	public abstract boolean limitItemsValidation();
 	
 	public List<Item> buyItem(PlayerItemsMarket itemsMarket, int itemIndex) {
-		
 		processBalanceToBuyTransferenceSimulation(itemsMarket, itemIndex);
 		processItemToBuyTranspassSimulation(itemsMarket, itemIndex);
 
@@ -41,45 +40,35 @@ public abstract class NPC {
 	}
 	
 	public List<Item> sellItem(PlayerItemsMarket itemsMarket, int itemIndex) {
-		
 		processBalanceToSellTransferenceSimulation(itemsMarket, itemIndex);
 		processItemToSellTranspassSimulation(itemsMarket, itemIndex);
 					
 		return getNpcItemsBag();
 	}
 	
-	public void processBalanceToBuyTransferenceSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {
-		
-		itemsMarket.incrementMarketBalance(itemsMarket.getItems().get(itemIndex).getItemPrice());
-		
+	public void processBalanceToBuyTransferenceSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {	
+		itemsMarket.incrementMarketBalance(itemsMarket.getItems().get(itemIndex).getItemPrice());	
 	}
 	
 	public void processItemToBuyTranspassSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {
-		
-		getNpcItemsBag().add(itemsMarket.getItems().get(itemIndex));
-		
+		getNpcItemsBag().add(itemsMarket.getItems().get(itemIndex));	
 	}
 	
 	public void processOwnerKeySignToBuyTransferSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {
-		
 		itemsMarket.getItems().get(itemIndex).setItemOwnerKey(this.hashCode());
 	}
 	
-	public void processBalanceToSellTransferenceSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {
-		
+	public void processBalanceToSellTransferenceSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {	
 		itemsMarket.reduceMarketBalance(npcItemsBag.get(itemIndex).getItemPrice());
 		
 	}
 	
 	public void processItemToSellTranspassSimulation (PlayerItemsMarket itemsMarket, int itemIndex) {
-		
 		itemsMarket.addItems(npcItemsBag.get(itemIndex));
-		npcItemsBag.remove(itemIndex);
-		
+		npcItemsBag.remove(itemIndex);	
 	}
 	
 	public void processOwnerKeySignToSellTransferSimulation(PlayerItemsMarket itemsMarket, int itemIndex) {
-		
 		itemsMarket.getItems().get(itemsMarket.getItems().size()-1).setItemOwnerKey(itemsMarket.hashCode());
 	}
 	
@@ -101,7 +90,7 @@ public abstract class NPC {
 	
 	@Override
 	public String toString() {
-		return "NPC [npcName=" + npcName + ", npcLocation=" + npcLocation + ", npcWalletBalance="
+		return "NPC [npcName=" + npcName + ", npcLocation=" + npcLocation
 				+ ", npcItemsBag=" + npcItemsBag + "]";
 	}
 
