@@ -32,12 +32,8 @@ public class MarketGameAdmin {
 				itemsMarket.listCharactersByCity(Input.inputString("City: "));
 				break;
 			case 3:
-				System.out
-						.println("OrderListAndFilter functional interface method implementation by lamda expression.");
 				break;
 			case 4:
-				System.out
-						.println("OrderListAndFilter functional interface method implementation by lamda expression.");
 				break;
 			case 5:
 				try {
